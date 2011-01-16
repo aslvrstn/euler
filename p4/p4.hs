@@ -1,8 +1,8 @@
 import Data.List
 
-main = print (sort palindromes)
+main = print $ sort palindromes
 
-palindromes = (filter isPalindrome (concatMap (foo) [100..999]))
+palindromes = filter isPalindrome $ concatMap foo [100..999]
 
 foo n = map (*n) [n..999]
 
