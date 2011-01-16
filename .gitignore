@@ -2,3 +2,4 @@
 *.out
 *.hi
 *.o
+*.prof
