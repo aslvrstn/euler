@@ -4,7 +4,7 @@ sublists _ [] = []
 sublists n (x:xs) = take n (x:xs) : (sublists n xs)
 
 streaks = let g = grid sgrid
-          in rows g ++ cols g ++ diags g
+          in rows g ++ cols g ++ diags g ++ (diags $ map reverse g)
 
 
 rows grid = grid
