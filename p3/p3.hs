@@ -1,3 +1,3 @@
 import Euler
 
-main = print $ filter (\n -> mod 600851475143 n == 0) $ takeWhile (<775146) primes
+main = print $ filter ((==0).(mod 600851475143)) $ takeWhile (<775146) primes
