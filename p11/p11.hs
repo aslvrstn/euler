@@ -1,4 +1,10 @@
-main = print $ grid sgrid
+main = print $ maximum $ map product $ concatMap (sublists 4) streaks
+
+sublists _ [] = []
+sublists n (x:xs) = take n (x:xs) : (sublists n xs)
+
+streaks = let g = grid sgrid
+          in rows g ++ cols g ++ diags g
 
 
 rows grid = grid
