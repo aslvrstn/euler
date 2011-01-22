@@ -5,7 +5,7 @@ main = do
 maxPath [] = 0
 maxPath t@([root]:_) = root + max (maxPath $ lTriangle t) (maxPath $ rTriangle t)
 
-lTriangle ([root]:rows) = map (\l -> take ((length l)-1) l) rows
+lTriangle ([root]:rows) = map init rows
 
 rTriangle ([root]:rows) = map (drop 1) rows
 
