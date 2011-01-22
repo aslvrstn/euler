@@ -1,4 +1,6 @@
-module Euler (fibs, primes, primeFactors) where
+module Euler (fibs, primes, primeFactors, divisors) where
+
+import Data.List
 
 fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 
@@ -12,3 +14,5 @@ primeFactors n = factorHelper n primes
 factorHelper n (p:ps) | p*p > n         = [n]
                       | n `mod` p == 0  = p : factorHelper (n `div` p) (p:ps)
                       | otherwise       = factorHelper n ps
+
+divisors n = nub $ map product $ subsequences $ primeFactors n
