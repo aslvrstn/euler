@@ -1,18 +1,14 @@
+import Data.List
+
 main = print $ maximum $ map product $ concatMap (sublists 4) streaks
 
 sublists _ [] = []
 sublists n (x:xs) = take n (x:xs) : (sublists n xs)
 
 streaks = let g = grid sgrid
-          in rows g ++ cols g ++ diags g ++ (diags $ map reverse g)
+          in g ++ transpose g ++ diags g ++ (diags $ map reverse g)
 
-
-rows grid = grid
-
-cols ([]:_) = []
-cols grid = map head grid : (cols $ removeCol grid)
-
-diags grid = diag grid : (colDiags $ (removeRow grid)) ++ (colDiags $ removeRow $ cols grid)
+diags grid = diag grid : (colDiags $ (removeRow grid)) ++ (colDiags $ removeRow $ transpose grid)
 
 colDiags [] = []
 colDiags grid = diag grid : (colDiags $ removeRow grid)
