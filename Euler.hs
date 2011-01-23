@@ -1,4 +1,4 @@
-module Euler (fibs, primes, primeFactors, divisors) where
+module Euler (fibs, primes, isPrime, primeFactors, divisors) where
 
 import Data.List
 
@@ -7,6 +7,8 @@ fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 primes = 2 : (filter (\n -> nothingDivides n $ takeWhile (\m -> m*m <= n) primes) [3,5..])
 
 nothingDivides n l = filter (\x -> mod n x == 0) l == []
+
+isPrime n = (n > 1) && (length $ primeFactors n) == 1
 
 primeFactors 1 = [1]
 primeFactors n = factorHelper n primes
