@@ -1,3 +1,3 @@
-import Char
+import Euler
 
-main = print $ sum $ map digitToInt $ show $ product [1..100]
+main = print $ sum $ digits $ product [1..100]
