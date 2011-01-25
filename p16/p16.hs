@@ -1,5 +1,4 @@
-import Euler
 import Data.Bits
-import Char
+import Data.Digits
 
-main = print $ sum $ digits $ shiftL (1::Integer) 1000
+main = print $ sum $ digits 10 $ shiftL (1::Integer) 1000

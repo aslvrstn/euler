@@ -1,9 +1,6 @@
-module Euler (digits, fibs, primes, isPrime, primeFactors, divisors) where
+module Euler (fibs, primes, isPrime, primeFactors, divisors) where
 
 import Data.List
-import Char
-
-digits n = map digitToInt $ show n
 
 fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 
