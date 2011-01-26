@@ -11,6 +11,6 @@ pairsWithLast l = let r = reverse l
 allPairs [] = []
 allPairs (x:xs) = map (\y -> (x,y)) xs ++ allPairs xs
 
-elemSorted e l = e `elem` (takeWhile (<=e) l)
+elemSorted e l = e == last (takeWhile (<=e) l)
 
 pents = map (\n -> n*(3*n-1) `div` 2) [1..]
