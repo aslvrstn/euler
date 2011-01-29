@@ -1,10 +1,5 @@
 main = print $ 0
 
--- Take out the elements from the sub-triangle starting at r and continuing for l levels
-subTri t r l = take (triNums!!l) $ drop r t
-
-triNums = map (\n -> n*(n+1) `div` 2) [0..]
-
 rng = 0 : map (\n -> t!!n - 2^19) [1..500500]
       where
         t = 0 : map (\n -> (615949*t!!(n-1) + 797807) `mod` (2^20)) [1..500500]
