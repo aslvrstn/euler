@@ -2,7 +2,7 @@ import Char
 
 main = do
          f <- readFile "matrix.txt"
-         print $ parseFile f
+         print $ (minPath $ parseFile f)!!0!!0
 
 minPath f = minPath'
             where 
