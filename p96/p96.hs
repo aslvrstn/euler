@@ -24,17 +24,17 @@ solvable puzz = all (all (\u -> (length u) /= 0)) puzz
 
 solved puzz = all (all (\u -> (length u) == 1)) puzz
 
-removeUsed puzz = transpose $ removeUsedRows $ transpose $ removeUsedRows puzz
-    where 
-        removeUsedRows puzz = map (\r -> map (remove (singlesRow r)) r) puzz
-        singlesRow r = concat $ filter (\p -> (length p == 1)) r
-        remove ss ps = if length ps == 1 then ps else ps \\ ss
+removeUsed puzz = zipWith (zipWith (\uu u -> if length uu == 1 then uu else (uu \\ u))) puzz (used $ singleForm puzz)
 
---unused puzz = map (map (unused' puzz)) coords
---    where unused' puzz (x,y) = [1..9] \\ (puzz!!x ++ (transpose puzz)!!y ++ (sq puzz (x,y)))
---          sq puzz (x,y) = concatMap ((take 3) . (drop (3*(y `div` 3)))) $ take 3 $ drop (3*(x `div` 3)) puzz
+used puzz = map (map (used' puzz)) coords
+    where used' puzz (x,y) = nub $ (puzz!!x ++ (transpose puzz)!!y ++ (sq puzz (x,y)))
+          sq puzz (x,y) = concatMap ((take 3) . (drop (3*(y `div` 3)))) $ take 3 $ drop (3*(x `div` 3)) puzz
+
+coords = map (\x -> map (\y -> (x,y)) [0..8]) [0..8]
 
 listForm puzz = map (map (\x -> if (x == 0) then [1..9] else [x])) puzz
+
+singleForm lpuzz = map (map (\u -> if (length u == 1) then head u else 0)) lpuzz
 
 parse :: String -> [[[Int]]]
 parse f = map (map (map digitToInt)) $ map (drop 1) $ chunk 10 $ lines f
