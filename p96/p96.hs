@@ -5,13 +5,16 @@ import Data.Maybe
 
 main = do
          f <- readFile "sudoku.txt"
-         print $ solve $ head $ parse f
+         print $ euler $ parse f
 
-solve puzz = solve' $ listForm puzz
+euler puzzles = sum $ map (\p -> read $ map intToDigit (take 3 $ head $ solve p)) puzzles
+
+solve puzz = singleForm $ fromJust $ solve' $ listForm puzz
 
 solve' puzz = let singled = keepRemovingUsed puzz
               in if solved singled then (Just singled) else (if solvable singled then listToMaybe $ mapMaybe solve' $ collapseOne singled else Nothing)
 
+collapseOne [] = []
 collapseOne (r:rs) = let collapsedRow = collapseOneR r
                      in if null collapsedRow then map (r:) (collapseOne rs) else map (flip (:) rs) collapsedRow
                      where collapseOneR [] = []
@@ -22,12 +25,13 @@ keepRemovingUsed puzz = let onePass = removeUsed puzz
 
 solvable puzz = all (all (\u -> (length u) /= 0)) puzz
 
-solved puzz = all (all (\u -> (length u) == 1)) puzz
+solved puzz = all (all (\u -> (length u) == 1)) puzz && all (all usedAlright) (used $ singleForm puzz)
+    where usedAlright u = all (\g -> (length g == 3)) $ group $ sort u
 
-removeUsed puzz = zipWith (zipWith (\uu u -> if length uu == 1 then uu else (uu \\ u))) puzz (used $ singleForm puzz)
+removeUsed puzz = zipWith (zipWith (\uu u -> if length uu == 1 then uu else (uu \\ u))) puzz (nub $ used $ singleForm puzz)
 
 used puzz = map (map (used' puzz)) coords
-    where used' puzz (x,y) = nub $ (puzz!!x ++ (transpose puzz)!!y ++ (sq puzz (x,y)))
+    where used' puzz (x,y) = (puzz!!x ++ (transpose puzz)!!y ++ (sq puzz (x,y)))
           sq puzz (x,y) = concatMap ((take 3) . (drop (3*(y `div` 3)))) $ take 3 $ drop (3*(x `div` 3)) puzz
 
 coords = map (\x -> map (\y -> (x,y)) [0..8]) [0..8]
