@@ -1,4 +1,4 @@
-main = print $ 0
+main = print $ List.find (check . (^2)) poss
 
 poss :: [Integer]
 poss = [read $ [a,b,c,d,e,f,g,h,i,j] | a <- ['1'], b <- ['0'..'3'], c <- ['0'..'9'], d <- ['0'..'9'], e <- ['0'..'9'], f <- ['0'..'9'], g <- ['0'..'9'], h <- ['0'..'9'], i <- ['3','7'], j <- ['0']]
