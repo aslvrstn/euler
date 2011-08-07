@@ -1,9 +1,9 @@
 import Data.List
 import Data.Ratio
 
-main = print $ length $ sol 12000
+main = print $ head $ sol 1000000
 
-sol x = foldr1 mergeDD $ map (\n -> map (%n) $ reverse [1..n]) [1..x]
+sol x = dropWhile (>= (3 % 7)) . foldr1 mergeDD $ map (\n -> map (%n) $ reverse [1..(n*3) `div` 7+1]) [1..x]
 
 mergeDD a [] = a
 mergeDD [] b = b
