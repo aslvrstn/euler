@@ -5,8 +5,6 @@ poss = [read $ [a,b,c,d,e,f,g,h,i,j] | a <- ['1'], b <- ['0'..'3'], c <- ['0'..'
 
 check n = "1234567890" == (eother $ show n)
 
-checkp p n = drop (9-p) "1234567890" == (drop (9-p) $ eother $ show n)
-
 eother [] = []
 eother [x] = [x]
 eother (x1:x2:xs) = x1:(eother xs)
